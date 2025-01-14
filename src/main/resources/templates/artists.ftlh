@@ -19,15 +19,20 @@
     </thead>
     <tbody>
     <#list artists as artist>
+<#--        <#if artist.artistId??>-->
+<#--            ${artist.artistId}-->
+<#--        <#else>-->
+<#--            ID не задан-->
+<#--        </#if>-->
         <tr>
-            <td>${artist.artistId}</td>
+            <td>${artist.artistID}</td>
             <td>${artist.name}</td>
             <td>${artist.gender}</td>
             <td>${artist.birthdate}</td>
             <td><#if artist.group??>${artist.group.name}</#if></td>
             <td>
-                <a href="/artists/edit/${artist.artistId}">Edit</a>
-                <form action="/artists/delete/${artist.artistId}" method="post" style="display:inline;">
+                <a href="/artists/edit/${artist.artistID}">Edit</a>
+                <form action="/artists/delete/${artist.artistID}" method="post" style="display:inline;">
                     <button type="submit">Delete</button>
                 </form>
             </td>

@@ -19,13 +19,13 @@
     <tbody>
     <#list groups as group>
         <tr>
-            <td>${group.groupId}</td>
+            <td>${group.groupID}</td>
             <td>${group.name}</td>
             <td>${group.debutYear}</td>
             <td>${group.company}</td>
             <td>
-                <a href="/groups/edit/${group.groupId}">Edit</a>
-                <form action="/groups/delete/${group.groupId}" method="post" style="display:inline;">
+                <a href="/groups/edit/${group.groupID}">Edit</a>
+                <form action="/groups/delete/${group.groupID}" method="post" style="display:inline;">
                     <button type="submit">Delete</button>
                 </form>
             </td>

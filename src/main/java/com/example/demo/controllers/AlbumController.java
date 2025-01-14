@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeFormatter;
+
 @Controller
 @RequestMapping("/albums")
 @AllArgsConstructor
@@ -35,15 +37,31 @@ public class AlbumController {
         return "redirect:/albums";
     }
 
+//    @GetMapping("/edit/{id}")
+//    public String editAlbumForm(@PathVariable Long id, Model model) {
+//        Album album = albumService.getAlbumById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid album Id: " + id));
+//        model.addAttribute("album", album);
+//        model.addAttribute("artists", artistService.getAllArtists()); // Для выбора нового артиста
+//        model.addAttribute("groups", groupService.getAllGroups());   // Для выбора новой группы
+//        return "albums-edit";
+//    }
+
     @GetMapping("/edit/{id}")
     public String editAlbumForm(@PathVariable Long id, Model model) {
         Album album = albumService.getAlbumById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid album Id: " + id));
+
+        // Добавляем обработку null значения для даты релиза
+        String formattedReleaseDate = album.getReleaseDate() != null
+                ? album.getReleaseDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                : null; // Или установите строку по умолчанию, если нужно
+
         model.addAttribute("album", album);
-        model.addAttribute("artists", artistService.getAllArtists()); // Для выбора нового артиста
-        model.addAttribute("groups", groupService.getAllGroups());   // Для выбора новой группы
+        model.addAttribute("formattedReleaseDate", formattedReleaseDate);
         return "albums-edit";
     }
+
 
     @PostMapping("/update/{id}")
     public String updateAlbum(@PathVariable Long id, @ModelAttribute Album albumDetails) {

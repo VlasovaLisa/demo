@@ -11,6 +11,7 @@ import com.example.demo.*;
 public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ArtistID")
     private Long artistID;
 
     @Column(nullable = false)
@@ -22,7 +23,7 @@ public class Artist {
     private LocalDate birthdate;
 
     @ManyToOne
-    @JoinColumn(name = "groupID")
+    @JoinColumn(name = "GroupID")
     private Group group;
 
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)

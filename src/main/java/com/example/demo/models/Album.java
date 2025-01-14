@@ -9,19 +9,21 @@ import com.example.demo.*;
 public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "AlbumID")
     private Long albumID;
 
     @Column(nullable = false)
     private String title;
 
+    @Column(name = "ReleaseDate")
     private LocalDate releaseDate;
 
     @ManyToOne
-    @JoinColumn(name = "artistID")
+    @JoinColumn(name = "ArtistID")
     private Artist artist;
 
     @ManyToOne
-    @JoinColumn(name = "groupID")
+    @JoinColumn(name = "GroupID")
     private Group group;
 
 

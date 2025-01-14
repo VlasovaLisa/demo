@@ -11,7 +11,8 @@ public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long groupId;
+    @Column(name = "GroupID")
+    private Long groupID;
 
     @Column(nullable = false)
     private String name;
@@ -25,12 +26,12 @@ public class Group {
     private List<Album> albums;
 
 
-    public Long getGroupId() {
-        return groupId;
+    public Long getGroupID() {
+        return groupID;
     }
 
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
+    public void setGroupID(Long groupID) {
+        this.groupID = groupID;
     }
 
     public String getName() {

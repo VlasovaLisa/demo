@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 @Controller
 @RequestMapping("/artists")
 @AllArgsConstructor
@@ -18,7 +21,8 @@ public class ArtistController {
 
     @GetMapping
     public String getAllArtists(Model model) {
-        model.addAttribute("artists", artistService.getAllArtists());
+        List<Artist> artists = artistService.getAllArtists();
+        model.addAttribute("artists", artists);
         return "artists";
     }
 
@@ -39,7 +43,13 @@ public class ArtistController {
     public String editArtistForm(@PathVariable Long id, Model model) {
         Artist artist = artistService.getArtistById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid artist Id: " + id));
+
+        // Форматирование даты
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedBirthdate = artist.getBirthdate() != null ? artist.getBirthdate().format(formatter) : null;
+
         model.addAttribute("artist", artist);
+        model.addAttribute("formattedBirthdate", formattedBirthdate); // Передача отформатированной даты
         model.addAttribute("groups", groupService.getAllGroups()); // Для выбора новой группы
         return "artists-edit";
     }
